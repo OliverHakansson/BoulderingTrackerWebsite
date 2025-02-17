@@ -5,25 +5,35 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Bouldering Grades Tracker</title>
   <link rel="stylesheet" href="style.css" />
-  <script src="https://cdn.jsdelivr.net/npm/crypto-js@4.0.0/core.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/crypto-js@4.0.0/aes.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
   <div class="container">
+    <h1>Bouldering Grades Tracker</h1>
+    
     <div class="current-user">
-      Logged in as: <span id="currentUsername"></span><br/>
+      Logged in as: <span id="currentUsername"></span>
       <button onclick="logout()">Logout</button>
     </div>
-    <h1>Bouldering Grades Tracker</h1>
-    <input type="range" id="gradeSlider" min="0" max="17" value="0" oninput="updateGrade()" />
-    <p>Selected Grade: <span id="selectedGrade">V0</span></p>
-    <button onclick="submitGrade()">Add Grade</button>
-    <button onclick="removeGrade()">Remove Grade</button>
-    <p>Score: <span id="score">0</span></p>
-    <p>Hardest Climb: <span id="hardestClimb">V0</span></p>
-    <canvas id="gradeChart"></canvas>
+
+    <div class="grade-controls">
+      <input type="range" id="gradeSlider" min="0" max="17" value="0" oninput="updateGrade()" />
+      <p>Selected Grade: <span id="selectedGrade">V0</span></p>
+      <button onclick="submitGrade()">Add Grade</button>
+      <button onclick="removeGrade()">Remove Grade</button>
+    </div>
+
+    <div class="stats">
+      <p>Score: <span id="score">0</span></p>
+      <p>Hardest Climb: <span id="hardestClimb">V0</span></p>
+    </div>
+
+    <!-- Chart container -->
+    <div class="chart-container" style="width: 80%; height: 400px;">
+      <canvas id="gradeChart"></canvas>
+    </div>
   </div>
+
   <script src="script.js"></script>
 </body>
 </html>

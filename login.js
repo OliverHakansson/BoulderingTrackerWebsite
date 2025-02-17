@@ -7,24 +7,21 @@ function login() {
     return;
   }
   
-  const encryptedUserData = localStorage.getItem("user_" + username);
-  if (!encryptedUserData) {
+  const userData = localStorage.getItem("user_" + username);
+  if (!userData) {
     alert("User not found. Please sign up.");
     return;
   }
   
-  const bytes = CryptoJS.AES.decrypt(encryptedUserData, 'secret-key');
-  let decryptedData;
+  let parsedData;
   try {
-    decryptedData = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
+    parsedData = JSON.parse(userData);
   } catch (e) {
-    alert("Error decrypting user data.");
+    alert("Error reading user data.");
     return;
   }
   
-  const decryptedPassword = CryptoJS.AES.decrypt(decryptedData.password, 'secret-key').toString(CryptoJS.enc.Utf8);
-  
-  if (decryptedPassword !== password) {
+  if (parsedData.password !== password) {
     alert("Incorrect password.");
     return;
   }
