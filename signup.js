@@ -13,21 +13,22 @@ function signup() {
     return;
   }
   
-  // Check if user already exists
   if (localStorage.getItem("user_" + username)) {
     alert("Username already exists. Please choose another.");
     return;
   }
   
-  // Create new user data. gradeData starts as an empty object.
+  const encryptedPassword = CryptoJS.AES.encrypt(password, 'secret-key').toString();
+
   const userData = {
-    password: password,
+    password: encryptedPassword,
     gradeData: {}
   };
   
-  localStorage.setItem("user_" + username, JSON.stringify(userData));
+  const encryptedUserData = CryptoJS.AES.encrypt(JSON.stringify(userData), 'secret-key').toString();
   
-  // Automatically log the user in after signup
+  localStorage.setItem("user_" + username, encryptedUserData);
+  
   localStorage.setItem("currentUser", username);
   window.location.href = "index.html";
 }

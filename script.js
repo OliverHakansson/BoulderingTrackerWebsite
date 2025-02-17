@@ -7,16 +7,23 @@ function getCurrentUser() {
 function loadUserData() {
   const username = getCurrentUser();
   if (!username) return null;
-  const storedUser = localStorage.getItem("user_" + username);
-  if (storedUser) {
-    return JSON.parse(storedUser);
+  
+  const encryptedUserData = localStorage.getItem("user_" + username);
+  if (!encryptedUserData) return null;
+  
+  const bytes = CryptoJS.AES.decrypt(encryptedUserData, 'secret-key');
+  try {
+    return JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
+  } catch (e) {
+    alert("Error decrypting user data.");
+    return null;
   }
-  return null;
 }
 
 function saveUserData(userData) {
   const username = getCurrentUser();
-  localStorage.setItem("user_" + username, JSON.stringify(userData));
+  const encryptedUserData = CryptoJS.AES.encrypt(JSON.stringify(userData), 'secret-key').toString();
+  localStorage.setItem("user_" + username, encryptedUserData);
 }
 
 function updateGrade() {
@@ -35,7 +42,6 @@ function submitGrade() {
   let grade = document.getElementById("gradeSlider").value;
   let userData = loadUserData();
   
-  // Update grade data for the user
   userData.gradeData[grade] = (userData.gradeData[grade] || 0) + 1;
   saveUserData(userData);
   gradeData = userData.gradeData;
@@ -122,7 +128,6 @@ window.onload = function () {
     return;
   }
   
-  // Display current username
   document.getElementById("currentUsername").textContent = username;
   
   let userData = loadUserData();
