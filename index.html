@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bouldering Grades Tracker</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <div class="container">
+    <div class="current-user">
+      Logged in as: <span id="currentUsername"></span><br/>
+      <button onclick="logout()">Logout</button>
+    </div>
+    <h1>Bouldering Grades Tracker</h1>
+    <input type="range" id="gradeSlider" min="0" max="17" value="0" oninput="updateGrade()" />
+    <p>Selected Grade: <span id="selectedGrade">V0</span></p>
+    <button onclick="submitGrade()">Add Grade</button>
+    <button onclick="removeGrade()">Remove Grade</button>
+    <p>Score: <span id="score">0</span></p>
+    <p>Hardest Climb: <span id="hardestClimb">V0</span></p>
+    <canvas id="gradeChart"></canvas>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>

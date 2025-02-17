@@ -1,0 +1,125 @@
+/* General Reset and Box Sizing */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f9;
+    color: #333;
+    line-height: 1.6;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    padding: 20px;
+}
+
+/* Container for the content */
+.container {
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    border-radius: 8px;
+    width: 100%;
+    max-width: 600px;
+    text-align: center;
+    overflow: hidden;
+}
+
+/* Header Styling */
+h1 {
+    font-size: 2rem;
+    color: #4caf50;
+    margin-bottom: 20px;
+    font-weight: 600;
+}
+
+/* Styling for the grade slider */
+input[type="range"] {
+    width: 100%;
+    margin: 15px 0;
+    accent-color: #4caf50; /* Green accent */
+}
+
+input[type="range"]::-webkit-slider-runnable-track {
+    height: 8px;
+    background: #ddd;
+    border-radius: 5px;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+    width: 20px;
+    height: 20px;
+    background: #4caf50;
+    border-radius: 50%;
+    border: 1px solid #4caf50;
+}
+
+/* Styling for text elements */
+p {
+    font-size: 1.1rem;
+    margin: 10px 0;
+}
+
+/* Styling for buttons */
+button {
+    background-color: #4caf50;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1rem;
+    cursor: pointer;
+    border-radius: 5px;
+    margin: 10px 5px;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+/* Styling for inputs on login and signup */
+input[type="text"],
+input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    font-size: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+/* Styling for the Canvas */
+canvas {
+    max-width: 100%;
+    margin-top: 20px;
+    border-radius: 8px;
+}
+
+/* Current User Section */
+.current-user {
+    margin-bottom: 20px;
+    font-size: 1.1rem;
+}
+
+/* Media Queries for Responsiveness */
+@media screen and (max-width: 600px) {
+    .container {
+        padding: 20px;
+    }
+
+    h1 {
+        font-size: 1.6rem;
+    }
+
+    button {
+        font-size: 0.9rem;
+    }
+
+    input[type="range"] {
+        width: 90%;
+    }
+}
