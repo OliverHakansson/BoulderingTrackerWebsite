@@ -6,20 +6,29 @@ document.addEventListener("DOMContentLoaded", function () {
       return;
     }
   
+    // Display the current user's username
     document.getElementById("currentUsername").textContent = username;
   
+    // Bind the slider's input event so that the displayed grade updates in real-time
+    const gradeSlider = document.getElementById("gradeSlider");
+    gradeSlider.addEventListener("input", updateGrade);
+  
+    // Load the user's data
     let userData = loadUserData(username);
     console.log("User data loaded:", userData);
   
+    // Update stats and chart
     updateStats(userData.gradeData);
     updateChart(userData.gradeData);
   });
   
+  // Load user data from localStorage
   function loadUserData(username) {
     const userData = localStorage.getItem("user_" + username);
     return userData ? JSON.parse(userData) : { gradeData: {} };
   }
   
+  // Update statistics like score and hardest climb
   function updateStats(gradeData) {
     let allGrades = [];
     Object.keys(gradeData).forEach((grade) => {
@@ -36,6 +45,7 @@ document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("hardestClimb").textContent = "V" + (allGrades[0] || 0);
   }
   
+  // Update the chart with the latest grade data
   function updateChart(gradeData) {
     const canvas = document.getElementById("gradeChart");
     if (!canvas) {
@@ -58,17 +68,10 @@ document.addEventListener("DOMContentLoaded", function () {
     let sortedGrades = Object.keys(gradeData).map(Number).sort((a, b) => a - b);
     let sortedData = sortedGrades.map((grade) => gradeData[grade]);
   
-    // Debug logging
     console.log("Sorted Grades:", sortedGrades);
     console.log("Sorted Data:", sortedData);
   
-    // If there's no grade data, create an empty chart
-    if (sortedGrades.length === 0) {
-      console.log("No grade data available. Creating empty chart.");
-      sortedGrades = [];
-      sortedData = [];
-    }
-  
+    // Create the chart (even if empty data)
     window.gradeChartInstance = new Chart(ctx, {
       type: "bar",
       data: {
@@ -117,18 +120,20 @@ document.addEventListener("DOMContentLoaded", function () {
     console.log("Chart updated successfully.");
   }
   
+  // Logout function
   function logout() {
     localStorage.removeItem("currentUser");
     window.location.href = "login.html";
   }
   
+  // Handle adding a grade
   function submitGrade() {
     const username = localStorage.getItem("currentUser");
     const grade = document.getElementById("gradeSlider").value;
     if (!username || grade === undefined) return;
   
     let userData = loadUserData(username);
-    // Ensure that gradeData exists
+    // Ensure gradeData exists
     if (!userData.gradeData) {
       userData.gradeData = {};
     }
@@ -139,13 +144,14 @@ document.addEventListener("DOMContentLoaded", function () {
     updateChart(userData.gradeData);
   }
   
+  // Handle removing a grade
   function removeGrade() {
     const username = localStorage.getItem("currentUser");
     const grade = document.getElementById("gradeSlider").value;
     if (!username || grade === undefined) return;
   
     let userData = loadUserData(username);
-    // Ensure that gradeData exists
+    // Ensure gradeData exists
     if (!userData.gradeData) {
       userData.gradeData = {};
     }
@@ -160,5 +166,11 @@ document.addEventListener("DOMContentLoaded", function () {
   
     updateStats(userData.gradeData);
     updateChart(userData.gradeData);
+  }
+  
+  // Update the selected grade display as the slider moves
+  function updateGrade() {
+    const grade = document.getElementById("gradeSlider").value;
+    document.getElementById("selectedGrade").textContent = "V" + grade;
   }
   
